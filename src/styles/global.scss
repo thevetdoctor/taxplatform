@@ -1,0 +1,454 @@
+$primary-color: #fff;
+$secondary-color: #76d119;
+
+$md-desktop: 1199px;
+$tablet-breakpoint: 768px;
+$small-devices: 767px;
+$sm-breakpoint: 600px;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+//-----------------------------------------------------------
+//Common / Global classnames
+//-----------------------------------------------------------
+
+#green-bold-header {
+    color: $secondary-color;
+    font-size: 25px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    margin-bottom: 10px !important;
+    text-align: left;
+
+    @media (max-width: $sm-breakpoint) {
+        font-size: 16px !important;
+    }
+}
+
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+label {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.backdrop {
+    height: 100vh;
+    background-color: $secondary-color;
+    overflow: hidden;
+    width: 100%;
+}
+
+#circ {
+    display: flex;
+
+    #circle {
+        height: 100vh;
+        width: 70vw;
+        border-radius: 50%;
+        background-color: transparent;
+        background-repeat: repeat;
+        border: 130px solid $primary-color;
+        margin-left: -150px;
+        margin-top: -70px;
+        transform: rotate(-20deg);
+        opacity: 0.06;
+    }
+
+    #circle-two {
+        height: 100vh;
+        width: 70vw;
+        border-radius: 50%;
+        background-color: transparent;
+        border: 130px solid $primary-color;
+        opacity: 0.06;
+        right: -5%;
+        bottom: -18%;
+        position: fixed;
+    }
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    margin-bottom: 50px;
+    margin-right: 20px;
+
+    #logo-one {
+        width: 25px;
+        position: absolute;
+        height: 25px;
+        border-radius: 50%;
+        box-shadow: 6px 6px 0 0 $primary-color;
+        transform: rotate(130deg);
+        margin: 10px 0 0 35px;
+    }
+
+    #logo-two {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 8px 8px 0 0 $primary-color;
+        transform: rotate(-50deg);
+    }
+
+    #logo-name {
+        font-size: 50px;
+        font-weight: bolder;
+        color: $primary-color;
+        margin-top: 25px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+}
+
+.container {
+    padding: 0 10px 0 10px;
+    margin-top: calc(100vh - 90vh);
+}
+
+#search-filter {
+    margin-left: 5px;
+    font-weight: 700;
+}
+
+#iconsearch {
+    color: white;
+    background-color: $secondary-color;
+}
+
+.box-with-shadow {
+    box-shadow: rgba(79, 79, 79, 0.07) 0px 4px 10px;
+    background-color: #fff;
+    transition: width 100ms ease-in-out;
+    width: 100%;
+    padding: 2em;
+    z-index: 4;
+    margin-top: 15px;
+
+    @media (max-width: $sm-breakpoint) {
+        padding: 1.2em;
+    }
+}
+
+li {
+    list-style-type: none;
+    display: inline;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    padding-left: 20px;
+    color: black;
+}
+
+.loader-applications {
+    color: $secondary-color;
+}
+
+#error {
+    color: red;
+}
+
+//------------------------------------------------
+//Alert
+//------------------------------------------------
+#message {
+    position: absolute;
+    bottom: 1%;
+    right: 20%;
+    left: 50%;
+    margin-left: -450px;
+    padding: 0 300px 0 300px;
+    position: fixed;
+    z-index: 4;
+
+    @media (max-width: $sm-breakpoint) {
+        margin-left: -250px;
+    }
+
+    #errorMessage {
+        color: red;
+        background-color: white;
+        text-align: center;
+        border-color: red;
+        width: 400px;
+
+        @media (max-width: $sm-breakpoint) {
+            width: 150px;
+        }
+    }
+
+    #successMessage {
+        color: green;
+        background-color: white;
+        text-align: center;
+        border-color: green;
+        width: 300px;
+
+        @media (max-width: $sm-breakpoint) {
+            width: 150px;
+        }
+    }
+}
+
+.income {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+//-------------------------------------------
+//Pdf component
+//-------------------------------------------
+.outer {
+    overflow: hidden;
+    position: relative;
+}
+
+.pdf {
+    // display: flex;
+    // justify-content: flex-start;
+    // align-items: flex-start;
+    // position: absolute;
+    // height: 100px;
+    // width: 100px;
+    // right: -50px;
+    // top: 50px;
+}
+
+#termInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-start;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+#pdf {
+    position: fixed;
+    transform: translateX(2000000vw);
+    // display: none;
+    padding: 50px 20px;
+
+    .pdf {
+        // border: 5px solid red;
+        padding: 50px 20px;
+        .user-name {
+            margin-bottom: 40px;
+        }
+
+        .purchase-details,
+        .banking-information,
+        .personal-information,
+        .residence-information,
+        .employment-information {
+            margin-bottom: 40px;
+            &__title {
+                text-align: left;
+                margin-bottom: 20px;
+            }
+
+            &__content {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-gap: 10px;
+                text-align: left;
+
+                h3 {
+                    margin-bottom: 3px;
+                }
+
+                strong {
+                    font-weight: 200;
+                }
+            }
+        }
+
+        .terms-and-conditions {
+            margin-bottom: 40px;
+            &__title {
+                text-align: left;
+                margin-bottom: 20px;
+            }
+
+            &__footer {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 40px;
+                text-align: left;
+            }
+        }
+
+        .pdf-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        #pdf-heads,
+        .pdf-heads {
+            color: $secondary-color;
+            font-weight: bold;
+        }
+
+        .income-head {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+    }
+}
+
+.wrap {
+    position: fixed;
+    transform: translateX(2000000vw);
+}
+
+//-------------------------------------------
+//PDF Templaye component
+//-------------------------------------------
+.pdf-template-wrapper {
+    text-align: left;
+
+    //----------------------
+    //Override any margin and padding coming from outside components
+    //----------------------
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    &__header {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 30px;
+
+        img {
+            margin-right: 30px;
+        }
+
+        h1 {
+            text-transform: uppercase;
+        }
+    }
+
+    &__content {
+        .section {
+            margin-bottom: 20px;
+            &__title {
+                margin-bottom: 5px;
+                text-transform: uppercase;
+                color: #76d119;
+                font-size: 18px;
+            }
+
+            &__content {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-gap: 15px;
+
+                h3 {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .terms-wrapper {
+            &__title {
+                margin-bottom: 5px;
+                color: #76d119;
+                font-size: 18px;
+                text-transform: uppercase;
+            }
+            &__footer {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-gap: 15px;
+
+                h3 {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
+
+//-------------------------------------------
+//Card component
+//-------------------------------------------
+.hm:disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
+}
+
+#hm:disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
+}
+
+.income-action {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#base {
+    color: $secondary-color;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.income-edit {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+small {
+    font-size: 16px;
+    font-weight: 300;
+    text-align: start;
+    float: left;
+}
+
+.actions {
+    .divider.text {
+        color: $secondary-color;
+    }
+
+    .dropdown.icon {
+        color: $secondary-color;
+    }
+}
+
+.green-small-btn {
+    width: 150px;
+    height: 50px;
+    border: none;
+    background-color: $secondary-color;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
+//-------------------------------------------

@@ -1,0 +1,297 @@
+@import "./global.scss";
+
+#billing-page {
+  min-height: 100vh;
+  padding-top: 60px; //to account for the fixed navbar
+
+  //Semantic UI Component override
+  .ui.container {
+    margin-top: 60px;
+  }
+
+  .billing-page {
+    &__header {
+      margin-bottom: 30px;
+
+      &__title {
+        color: #76d119;
+        font-size: 25px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+
+      &__content {
+        .first-row {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 10px;
+
+          .right-column {
+            display: flex;
+
+            #icon-search {
+              border: 1px solid grey;
+              width: 60px;
+              height: auto;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 3px;
+              margin-right: 15px;
+            }
+          }
+        }
+
+        .second-row {
+          display: flex;
+          justify-content: space-between;
+
+          .results-wrapper {
+            h5 {
+              margin-bottom: 0px;
+              margin-top: 0px;
+              font-weight: 200;
+              font-size: 12px;
+              opacity: 0.7;
+            }
+          }
+
+          .checkbox-wrapper {
+            display: flex;
+            flex-direction: column;
+
+            .ui.checkbox {
+              margin-bottom: 5px;
+
+              label {
+                font-weight: 600;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__custom-table {
+      &__header {
+        display: flex;
+        height: 60px;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+        border-radius: 4px;
+
+        @media (max-width: $small-devices) {
+          display: none;
+        }
+
+        .left-column {
+          flex-basis: 60px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .middle-column {
+          display: flex;
+          flex: 1;
+
+          @media (max-width: $small-devices) {
+            height: auto;
+            flex-direction: column;
+          }
+
+          &__section {
+            display: flex;
+            align-items: center;
+            width: 20%;
+            padding: 0px 20px;
+            overflow: hidden;
+
+            @media (max-width: $small-devices) {
+              width: auto;
+            }
+          }
+        }
+
+        .right-column {
+          flex-basis: 60px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      &__body {
+        .custom-row-wrapper {
+          box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+          margin-bottom: 20px;
+          border-radius: 4px;
+          background-color: white;
+          transition: 0.5s all;
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.05);
+          }
+
+          &:first-child {
+            margin-top: 20px;
+          }
+
+          .custom-row-desktop {
+            display: flex;
+            height: 60px;
+
+            // @media (max-width: $small-devices) {
+            //   display: none;
+            // }
+
+            .left-column {
+              flex-basis: 60px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .middle-column {
+              display: flex;
+              flex: 1;
+
+              &__section {
+                display: flex;
+                align-items: center;
+                width: 20%;
+                padding: 0px 20px;
+                overflow: hidden;
+              }
+            }
+
+            .right-column {
+              flex-basis: 60px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+            }
+          }
+
+          
+
+          .custom-row-mobile {
+            display: block;
+
+            @media (min-width: $small-devices + 1) {
+              display: none;
+            }
+
+            .wrapper {
+              display: flex;
+              .header {
+                flex: 1;
+                flex-shrink: 0;
+
+                .row {
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+                  border-right: 1px solid rgba(0, 0, 0, 0.3);
+                  padding: 10px;
+                  padding-left: 30px;
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  // background-color: #76d119;
+                  color: #76d119;
+                }
+              }
+
+              .content {
+                flex: 1;
+                flex-shrink: 0;
+
+                .row {
+                  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+                  padding: 10px;
+                  padding-left: 30px;
+                }
+              }
+            }
+
+            .edit {
+              padding: 10px;
+              text-align: center;
+              font-weight: 700;
+              text-transform: uppercase;
+              cursor: pointer;
+              color: #76d119;
+
+              &:hover {
+                background-color: #fafafa;
+              }
+            }
+          }
+        }
+
+        .expanded-section {
+          height: auto;
+          padding: 40px;
+          width: 100%;
+          background-color: rgba(118, 209, 25, 0.2);
+
+          text-align: center;
+        }
+      }
+    }
+
+    .ui.checkbox {
+      padding: 0px 10px;
+    }
+  }
+}
+
+.ui.modal {
+  width: 500px;
+  height: 500px;
+}
+
+.more-details-modal {
+  height: 500px;
+  width: 300px;
+}
+
+.ui.page.modals + div {
+  z-index: 9999 !important;
+}
+
+#transaction-modal {
+  margin: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 600px;
+  overflow: auto;
+
+  thead tr th {
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+    text-align: center;
+  }
+
+  tbody tr td {
+    margin: auto;
+    text-align: center;
+  }
+
+  tfoot tr td {
+    position: sticky;
+    right: 0px;
+    bottom: 0px;
+    background-color: white;
+
+    button {
+      margin: auto;
+      float: right;
+      width: 100%;
+    }
+  }
+}

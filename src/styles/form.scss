@@ -1,0 +1,189 @@
+@import "./global.scss";
+
+.form {
+    text-align: left;
+}
+
+//-------------------------------------------------
+//Global Form styles
+//-------------------------------------------------
+.form-style {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    justify-content: space-between;
+    margin: 10px 0 15px 0;
+
+    @media (max-width: $md-desktop) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: $tablet-breakpoint) {
+        grid-template-columns: 1fr;
+    }
+
+    //In order to make the label always sit on top
+    .input-with-label {
+        display: flex;
+        flex-direction: column;
+    }
+
+    //Redux form override
+    .ui.input {
+        width: 100%;
+    }
+
+    .field {
+        width: 100%;
+    }
+}
+
+#suffix {
+    width: 100px;
+}
+
+#form-width {
+    min-width: 300px;
+    width: 100%;
+
+    @media (max-width: $sm-breakpoint) {
+        min-width: auto;
+    }
+}
+
+#form-width-error {
+    border-color: red;
+}
+
+.btn-big-green {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    .btns {
+        width: 200px;
+        height: 50px;
+        border: none;
+        background-color: $secondary-color;
+        font-size: 16px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+//-------------------------------------------------
+//Employment Form
+//-------------------------------------------------
+.employment-form {
+    label {
+        display: inline-block;
+    }
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+
+        input {
+            margin-right: 10px;
+        }
+
+        label {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+//-------------------------------------------------
+//Banking Form Info
+//-------------------------------------------------
+
+.banking-info-form {
+    &__title {
+        margin-bottom: 15px;
+    }
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        input {
+            margin-right: 10px;
+        }
+
+        label {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+//-------------------------------------------------
+//Buyer Form Info
+//-------------------------------------------------
+.buyer-form {
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+
+        input {
+            margin-right: 10px;
+        }
+
+        label {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+//-------------------------------------------------
+//Purchase Form Info
+//-------------------------------------------------
+.hide {
+    display: none;
+}
+
+.show {
+    visibility: visible;
+}
+
+//-------------------------------------------------
+//Terms and conditions form
+//-------------------------------------------------
+.terms-and-conditions-details-wrapper {
+    height: 500px;
+    width: 100%;
+    background-color: $primary-color;
+    font-size: 1rem;
+    line-height: 30px;
+    overflow: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        width: 1px;
+    }
+}
+
+//-------------------------------------------------
+//Residential form
+//-------------------------------------------------
+.residential-form {
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        input {
+            margin-right: 10px;
+        }
+
+        label {
+            margin-bottom: 0px;
+        }
+    }
+}

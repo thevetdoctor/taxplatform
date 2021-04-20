@@ -1,0 +1,145 @@
+@import "../global.scss";
+
+.navbar-component {
+    .overlay {
+        height: 100%;
+        width: 0%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+
+        & a {
+            padding: 10px;
+            text-decoration: none;
+            font-size: 26px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+            cursor: pointer;
+
+            &:hover,
+            &:focus {
+                color: $secondary-color;
+            }
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 100%;
+            text-align: center;
+            margin-top: 100px;
+            font-weight: bold;
+        }
+    }
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: rgba(79, 79, 79, 0.07) 0px 4px 10px;
+        background-color: $primary-color;
+        transition: width 100ms ease-in-out;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        padding: 0 1.5em;
+        height: 60px;
+        z-index: 4;
+
+        .logo-menu {
+            margin-left: 45px;
+            cursor: pointer;
+            color: $secondary-color;
+
+            .logo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 28px;
+                margin-bottom: 30px;
+                margin-right: 10px;
+
+                #logo-one {
+                    width: 20px;
+                    position: absolute;
+                    height: 20px;
+                    border-radius: 50%;
+                    box-shadow: 6px 6px 0 0 $secondary-color;
+                    transform: rotate(130deg);
+                    margin: 13px 0 0 30px;
+                }
+
+                #logo-two {
+                    position: absolute;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    box-shadow: 6px 6px 0 0 $secondary-color;
+                    transform: rotate(-50deg);
+                    margin-top: 5px;
+                }
+
+                #logo-name {
+                    font-size: 30px;
+                    font-weight: bolder;
+                    color: rgb(138, 137, 137);
+                    margin-top: 25px;
+                    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                }
+            }
+        }
+
+        .nav-menu {
+            li {
+                a {
+                    color: $secondary-color;
+
+                    &.selected {
+                        color: $secondary-color;
+                        border-bottom: 2px solid $secondary-color;
+                        padding: 20px;
+                    }
+                }
+
+                &:nth-child(1) {
+                    @media (max-width: $tablet-breakpoint) {
+                        display: none;
+                    }
+                }
+                &:nth-child(2) {
+                    @media (max-width: $tablet-breakpoint) {
+                        display: none;
+                    }
+                }
+                &:nth-child(3) {
+                    @media (max-width: $tablet-breakpoint) {
+                        display: none;
+                    }
+                }
+                &:nth-child(4) {
+                    @media (max-width: $tablet-breakpoint) {
+                        display: none;
+                    }
+                }
+
+                &.menu-icon {
+                    visibility: hidden;
+                    cursor: pointer;
+                    font-size: 20px;
+                    float: right;
+
+                    @media (max-width: $tablet-breakpoint) {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+    }
+}

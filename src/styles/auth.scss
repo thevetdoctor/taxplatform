@@ -1,0 +1,55 @@
+@import "./global.scss";
+
+//-----------------------------------------------
+//Common auth screen styles
+//-----------------------------------------------
+.auth-screen-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    padding: 0 30% 0 30%;
+
+    .incomes {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .forgot-password {
+        font-size: 16px;
+        color: $secondary-color;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    #btn {
+        padding: 10px;
+        width: 200px;
+        font-size: 18px;
+        color: $primary-color;
+        background-color: $secondary-color;
+    }
+
+    #btn-outline {
+        padding: 10px;
+        width: 200px;
+        background-color: transparent;
+        padding: 10px;
+        width: 200px;
+        font-size: 18px;
+        color: $primary-color;
+        border: 1px $secondary-color solid;
+    }
+}
+
+.modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+}
