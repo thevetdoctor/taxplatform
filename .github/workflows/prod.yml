@@ -1,0 +1,46 @@
+name: ODFS Frontend Staging CI
+
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      # Droplets already have docker, doctl + auth, and curl installed
+      - name: Enter SSH and Compose All Services
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.DROPLET_IP }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd ~/odfs/frontend/prod
+            echo "clean up working area"
+            git add . || true
+            git stash  || true
+            echo "working area set for update"
+            
+            git checkout origin/prod || true
+            git checkout origin prod || true
+            git checkout prod || true
+            git pull origin prod || true 
+            git pull || true     
+
+            echo "git updates syncing completed"              
+
+            npm install --only=prod || true
+            
+            npm run build
+
+            docker stop odfs_lb || true
+            docker start odfs_lb || true
+
+            echo "restarted nginx"            
+
+            curl --silent --fail http://localhost:8081/ || true
