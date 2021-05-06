@@ -3,7 +3,7 @@ name: ODFS Frontend Staging CI
 on:
   push:
     branches:
-      - staging
+      - prod
   workflow_dispatch:
 
 jobs:
