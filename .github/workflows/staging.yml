@@ -34,7 +34,7 @@ jobs:
 
             echo "git updates syncing completed"              
 
-            npm install --only=prod || true
+            npm install --only=prod
             
             npm run build
 
