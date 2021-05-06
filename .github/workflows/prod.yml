@@ -38,8 +38,7 @@ jobs:
             
             npm run build
 
-            docker stop odfs_lb || true
-            docker start odfs_lb || true
+            docker restart odfs_lb || docker start odfs_lb || true
 
             echo "restarted nginx"            
 
