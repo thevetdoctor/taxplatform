@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Container, Button, Form, Card, Checkbox, Input, Message, Modal } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-
 import { useSelector, useDispatch } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import renderField from "../credit/components/subComponents/formFields/renderField";
 import renderPasswordField from "../credit/components/subComponents/formFields/renderPasswordField";
-
 import { loginUser, resetPassword } from "../../redux";
-
-//import style
-import "../../styles/auth.scss";
-
 import { isEmail, validateLogin } from "../../utils/Utils";
+import "../../styles/auth.scss";
 
 const Login = () => {
     const [errors, setErrors] = useState(false);
@@ -71,7 +66,7 @@ const Login = () => {
                         <div className="logo">
                             <img src="/assets/logo-auth.png" alt="Logo" />
                         </div>
-                        <Card fluid color="lightblue" className="card">
+                        <Card fluid className="card">
                             <Card.Content>
                                 <Card.Description>
                                     <Form className="form" size="small">
