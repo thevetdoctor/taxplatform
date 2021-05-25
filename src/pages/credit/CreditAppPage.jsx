@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Icon, Segment, Loader } from "semantic-ui-react";
+import { Container, Segment, Loader } from "semantic-ui-react";
 import queryString from "query-string";
 import { numbers } from "./CreditAppConstants";
 import PersonalForm from "./components/mainComponents/personalForm/PersonalForm";
