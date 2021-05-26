@@ -84,8 +84,8 @@ const CardForm = ({ userData, i }) => {
     const handleDownloadPdf = () => {
         var opt = {
             margin: 0.5,
-            filename: "myfile.pdf",
-            image: { type: "jpeg", quality: 0.98 },
+            filename: `${userData.personal_info.form.lastName}_${dayjs(userData.createdAt).format("MM-DD-YYYY_hh-mm A")}.pdf`,
+            image: { type: "jpeg", quality: 0.80 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
         };
