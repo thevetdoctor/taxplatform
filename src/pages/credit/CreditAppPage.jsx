@@ -28,11 +28,11 @@ const Credit = ({ location }) => {
   const [buyerInfoVisible, setBuyerInfoVisible] = useState(false);
   const [termInfo, setTermInfo] = useState(false);
   const [formTab, setFormTab] = useState(1);
-  const [isPersonalVisited, setIsPersonalVisited] = useState(true);
-  const [isResidentialVisited, setIsResidentialVisited] = useState(true);
-  const [isBankVisited, setIsBankVisited] = useState(true);
-  const [isBuyerVisited, setIsBuyerVisited] = useState(true);
-  const [isEmploymentVisited, setIsEmploymentVisited] = useState(true);
+  const [isPersonalVisited, setIsPersonalVisited] = useState(false);
+  const [isResidentialVisited, setIsResidentialVisited] = useState(false);
+  const [isBankVisited, setIsBankVisited] = useState(false);
+  const [isBuyerVisited, setIsBuyerVisited] = useState(false);
+  const [isEmploymentVisited, setIsEmploymentVisited] = useState(false);
 
   const nextStep = (e) => {
     setFormTab(formTab + 1);
@@ -57,7 +57,25 @@ const Credit = ({ location }) => {
   }, [tab]);
 
   useEffect(() => {
-    isEdit ? dispatch(getApplication({})) : dispatch(getApplicationData(id));
+    if (isEdit){
+      dispatch(getApplication({}))
+    } else {
+      dispatch(getApplicationData(id))
+      // open all tabs
+      setPurchaseVisible(true)
+      setPersonalVisible(true)
+      setResidentialVisible(true)
+      setEmploymentVisible(true)
+      setBankInfoVisible(true)
+      setBuyerInfoVisible(true)
+      setTermInfo(true)
+      // enable carets
+      setIsPersonalVisited(true)
+      setIsResidentialVisited(true)
+      setIsBankVisited(true)
+      setIsBuyerVisited(true)
+      setIsEmploymentVisited(true)
+    }
   }, [id, isEdit, dispatch]);
 
   return (

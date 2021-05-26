@@ -75,7 +75,7 @@ const PurchaseForm = ({
     financeCharge = financeCharge.substring(1, financeCharge.length); // remove $
     financeCharge = Number(financeCharge);
 
-    console.log({ amountFinance, numberOfmonthlyPayment, apr, financeCharge });
+    // console.log({ amountFinance, numberOfmonthlyPayment, apr, financeCharge });
 
     const interestPerYear = amountFinance * apr;
     const loanTerm = numberOfmonthlyPayment / 12;
@@ -85,8 +85,8 @@ const PurchaseForm = ({
     // Monthly Payment ( Total Loan Return / Monthly Payments )
     const monthlyCharge = totalReturn / numberOfmonthlyPayment;
 
-    console.log({ totalReturn });
-    console.log({ monthlyCharge });
+    // console.log({ totalReturn });
+    // console.log({ monthlyCharge });
 
     batch(() => {
       dispatch(
