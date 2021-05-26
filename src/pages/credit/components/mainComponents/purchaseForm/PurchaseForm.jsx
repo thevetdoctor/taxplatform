@@ -48,6 +48,7 @@ const PurchaseForm = ({
           minDate={new Date()}
           id="form-width"
           value={currentDate}
+          format={"MM-DD-YYYY"}
           onChange={(event, value) => handleDate(event, value, input)}
         />
         {touched && error && <span>{error}</span>}
