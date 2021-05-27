@@ -142,7 +142,7 @@ export const USER_DETAILS = [
 ];
 
 export const pendingNum = 0;
-export const signedNum = 2;
 export const approvedNum = 1;
-export const rejectedNum = -1;
+export const signedNum = 2;
 export const completedNum = 3;
+export const rejectedNum = -1;

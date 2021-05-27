@@ -37,26 +37,22 @@ const Application = () => {
   const { error } = useSelector((state) => state.app);
   const { isLoading } = useSelector((state) => state.app);
 
-  // console.log(applications, 'the apps')
-
   //-------------------------------------------------------------
   //State
   //-------------------------------------------------------------
   const [paginatedIndex, setPaginatedIndex] = useState(1);
   const [totalPageNum, setTotalPageNum] = useState();
-
-  const [fullData, setFullData] = useState([]); //Holds the entire data returned by the backend
   const [subsetData, setSubsetData] = useState([]); //Items from the entire data in any pagination index
-  const [displayedData, setDisplayedData] = useState(subsetData); //Items actually displayed, this is affected by the various filtering logic also
+  const [displayedData, setDisplayedData] = useState(applications); //Items actually displayed, this is affected by the various filtering logic also
 
   const [searchInput, setSearchInput] = useState("");
 
   const [currentFilters, setCurrentFilters] = useState({
-    pending: false,
-    approved: false,
-    signed: false,
-    rejected: false,
-    completed: false,
+    pending: true,
+    approved: true,
+    signed: true,
+    rejected: true,
+    completed: true,
   });
   const { pending, approved, signed, rejected, completed } = currentFilters;
 
@@ -67,11 +63,11 @@ const Application = () => {
     setCurrentFilters((prevState) => {
       return {
         ...prevState,
-        pending: false,
-        approved: false,
-        signed: false,
-        rejected: false,
-        completed: false,
+        pending: true,
+        approved: true,
+        signed: true,
+        rejected: true,
+        completed: true,
       };
     });
     setSearchInput("");
@@ -106,45 +102,58 @@ const Application = () => {
   //When any checkbox is clicked fire this useEffect to determine what should be displayed
   //-------------------------------------------------------------
   useEffect(() => {
-    // //assign all contents into different array
-    // let allContent = [...applications];
+    renderData(applications);
 
-    // //storage for all filters result(e.g when user selects more than one filter)
-    // let allFilteredContent = [];
+    const activeFilters = Object.entries(currentFilters).map(
+      ([key, val]) => {
+        if (val) {
+          switch (key) {
+            case "pending":
+              return pendingNum;
+            case "approved":
+              return approvedNum;
+            case "signed":
+              return signedNum;
+            case "completed":
+              return completedNum;
+            case "rejected":
+              return rejectedNum;
+            default:
+          }
+        }
+      }
+    );
 
-    // //storage for one filter result
-    // let filteredContent;
+    console.log({ activeFilters });
 
-    // //If the filter array is not empty get ready to filter according to its content
-    // for (let index in filterArray) {
-    //   //get the number that corresponds to the filter just chosen
-    //   let currentFilterNumber = getFilterNumber(filterArray[index]);
-
-    //   filteredContent = allContent.filter((item) => {
-    //     //every filter has a number associated with it
-    //     return item.status === currentFilterNumber;
-    //   });
-
-    //   allFilteredContent = [...allFilteredContent, ...filteredContent];
-
-    //   renderData(allFilteredContent);
-    // }
+    if (activeFilters.length > 0) {
+      const filteredContent = applications.filter((app) => {
+        if (activeFilters.includes(app.status)) {
+          return app;
+        }
+      });
+      setSubsetData(filteredContent);
+      renderData(filteredContent);
+    } else {
+      setSubsetData(applications);
+      renderData(applications);
+    }
   }, [applications, currentFilters]);
 
   //-------------------------------------------------------------
   //Filter using search input
   //-------------------------------------------------------------
   useEffect(() => {
-    const data = subsetData.filter((app) => {
-      if (app.personal_info && app.personal_info.form){
+    const data = applications.filter((app) => {
+      if (app.personal_info && app.personal_info.form) {
         const { firstName, lastName } = app.personal_info.form;
         return (
-            firstName?.toLowerCase().includes(searchInput.toLowerCase()) ||
-            lastName?.toLowerCase().includes(searchInput.toLowerCase())
+          firstName?.toLowerCase().includes(searchInput.toLowerCase()) ||
+          lastName?.toLowerCase().includes(searchInput.toLowerCase())
         );
       }
     });
-    setDisplayedData(data);
+    setSubsetData(data);
   }, [searchInput]);
 
   //-------------------------------------------------------------
@@ -153,17 +162,6 @@ const Application = () => {
   useEffect(() => {
     setDisplayedData(subsetData);
   }, [subsetData]);
-
-  //-------------------------------------------------------------
-  //Once "Main Request" below has fired, then this would fire, cause applications have been updated
-  //-------------------------------------------------------------
-  useEffect(() => {
-    if (applications) {
-      console.log("entered here");
-      renderData(applications);
-      setFullData(applications); //Store the full data here
-    }
-  }, [applications, paginatedIndex]);
 
   //-------------------------------------------------------------
   //Main Request that fetches data to populate page
@@ -290,7 +288,12 @@ const Application = () => {
                       {/* Filter checkboxes at the right*/}
                       <div className="checkbox-wrapper">
                         <Checkbox
-                          onChange={() => setCurrentFilters({...currentFilters, pending: !pending})}
+                          onChange={() =>
+                            setCurrentFilters({
+                              ...currentFilters,
+                              pending: !pending,
+                            })
+                          }
                           size="large"
                           label="Pending"
                           checked={pending}
@@ -300,7 +303,10 @@ const Application = () => {
                           size="large"
                           label="Approved"
                           onChange={() =>
-                            setCurrentFilters({...currentFilters, approved: !approved})
+                            setCurrentFilters({
+                              ...currentFilters,
+                              approved: !approved,
+                            })
                           }
                           checked={approved}
                           id="checks,"
@@ -308,12 +314,20 @@ const Application = () => {
                         <Checkbox
                           size="large"
                           label="Signed"
-                          onChange={() => setCurrentFilters({...currentFilters, signed: !signed})}
+                          onChange={() =>
+                            setCurrentFilters({
+                              ...currentFilters,
+                              signed: !signed,
+                            })
+                          }
                           checked={signed}
                         />
                         <Checkbox
                           onChange={() =>
-                            setCurrentFilters({...currentFilters, rejected: !rejected})
+                            setCurrentFilters({
+                              ...currentFilters,
+                              rejected: !rejected,
+                            })
                           }
                           checked={rejected}
                           size="large"
@@ -323,7 +337,10 @@ const Application = () => {
                           size="large"
                           label="Completed"
                           onChange={() =>
-                            setCurrentFilters({...currentFilters, completed: !completed})
+                            setCurrentFilters({
+                              ...currentFilters,
+                              completed: !completed,
+                            })
                           }
                           checked={completed}
                         />
