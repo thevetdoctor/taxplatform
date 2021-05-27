@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-import { exportComponentAsPDF } from "react-component-export-image";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import html2Pdf from "html2pdf.js";
 
@@ -15,10 +14,10 @@ import dayjs from "dayjs";
 import "../styles/global.scss";
 import "../styles/form.scss";
 
-import PdfDisplay from "./PdfDisplay";
 import PdfTemplate from "./PdfTemplate";
 
 const CardForm = ({ userData, i }) => {
+    const state = useSelector((state) => state.app);
     const [more, setMore] = useState(false);
     const [edit, setEdit] = useState(false);
     const [email, setEmail] = useState(
@@ -27,15 +26,9 @@ const CardForm = ({ userData, i }) => {
             : userData.personal_info.form.email
     );
     const [error, setError] = useState("");
-    const state = useSelector((state) => state.app);
-
-    const myRef = useRef();
-
-    const dispatch = useDispatch();
     const history = useHistory();
-
-    console.log({ userData });
-
+    const dispatch = useDispatch();
+    
     const updateEmail = (e) => {
         e.preventDefault();
         setError("");
@@ -84,8 +77,8 @@ const CardForm = ({ userData, i }) => {
     const handleDownloadPdf = () => {
         var opt = {
             margin: 0.5,
-            filename: "myfile.pdf",
-            image: { type: "jpeg", quality: 0.98 },
+            filename: `${userData.personal_info.form.lastName}_${dayjs(userData.createdAt).format("MM-DD-YYYY_hh-mm A")}.pdf`,
+            image: { type: "jpeg", quality: 0.80 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
         };
@@ -95,7 +88,6 @@ const CardForm = ({ userData, i }) => {
 
     return (
         <div>
-            {/* <PdfDisplay userData={userData} ref={myRef} /> */}
             <PdfTemplate userData={userData} />
             <Card fluid>
                 <Card.Content>

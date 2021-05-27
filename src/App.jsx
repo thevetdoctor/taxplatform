@@ -62,15 +62,8 @@ const App = () => {
         <Suspense fallback={<Preloader />}>
           <Switch>
             <ProtectedRoute exact path="/" component={Application} />
-            {/* <Route exact path="/register" component={Register} /> */}
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/update/password" component={UpdatePassword} />
-            <Route exact path="/dsCallback" component={Callback} />
-            <Route
-              exact
-              path="/form/initial-billing/:applicationId"
-              component={BillingForm}
-            />
+            <ProtectedRoute exact path="/register" component={Register} />
+            <ProtectedRoute exact path="/update/password" component={UpdatePassword} />
             <ProtectedRoute exact path="/credit" component={Credit} />
             <ProtectedRoute
               exact
@@ -79,6 +72,13 @@ const App = () => {
             />
             <ProtectedRoute exact path="/billing" component={Billing} />
             <ProtectedRoute exact path="/errors" component={Errors} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/dsCallback" component={Callback} />
+            <Route
+              exact
+              path="/form/initial-billing/:applicationId"
+              component={BillingForm}
+            />
           </Switch>
         </Suspense>
       </Router>

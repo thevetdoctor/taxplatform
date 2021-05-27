@@ -20,11 +20,11 @@ export const optionAutoPayMethod = [
 ];
 
 export const optionsNoOfMonthlyPayment = [
-    { key: "6", text: "6", value: "6" },
+    // { key: "6", text: "6", value: "6" },
     { key: "12", text: "12", value: "12" },
-    { key: "18", text: "18", value: "18" },
+    // { key: "18", text: "18", value: "18" },
     { key: "24", text: "24", value: "24" },
-    { key: "30", text: "30", value: "30" },
+    // { key: "30", text: "30", value: "30" },
     { key: "36", text: "36", value: "36" }
 ];
 

@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector, batch } from "react-redux";
-import { reset } from "redux-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Container, Segment, Loader } from "semantic-ui-react";
 import queryString from "query-string";
-import { Container, Icon, Segment, Loader } from "semantic-ui-react";
-
 import { numbers } from "./CreditAppConstants";
-import {
-    bankDispatch,
-    buyerDispatch,
-    purchaseDispatch,
-    employmentDispatch,
-    residentialDispatch,
-    personalDispatch,
-    termDispatch
-} from "./CreditAppReduxFormDispatches";
-
-import "../../styles/global.scss";
-import "../../styles/credit.scss";
-
 import PersonalForm from "./components/mainComponents/personalForm/PersonalForm";
 import PurchaseForm from "./components/mainComponents/purchaseForm/PurchaseForm";
 import BankForm from "./components/mainComponents/bankForm/BankForm";
@@ -25,346 +10,270 @@ import ResidentialForm from "./components/mainComponents/residentialForm/Residen
 import EmploymentForm from "./components/mainComponents/employmentForm/EmploymentForm";
 import BuyerForm from "./components/mainComponents/buyerForm/BuyerForm";
 import TermForm from "./components/mainComponents/termForm/TermForm";
-
 import { getApplicationData, getApplication } from "../../redux";
 import Navigation from "../../components/Navbar";
+import Header from "./components/helperComponents/Header";
+import "../../styles/global.scss";
+import "../../styles/credit.scss";
 
 const Credit = ({ location }) => {
-    const state = useSelector((state) => state.app);
-    const dispatch = useDispatch();
+  const state = useSelector((state) => state.app);
+  const dispatch = useDispatch();
 
-    const [purchaseVisible, setPurchaseVisible] = useState(true);
-    const [personalVisible, setPersonalVisible] = useState(true);
-    const [residentialVisible, setResidentialVisible] = useState(true);
-    const [employmentVisible, setEmploymentVisible] = useState(true);
-    const [bankInfoVisible, setBankInfoVisible] = useState(true);
-    const [buyerInfoVisible, setBuyerInfoVisible] = useState(true);
-    const [termInfo, setTermInfo] = useState(true);
-    const [formTab, setFormTab] = useState(1);
-    const [isPersonalVisited, setIsPersonalVisited] = useState(true);
-    const [isResidentialVisited, setIsResidentialVisited] = useState(true);
-    const [isBankVisited, setIsBankVisited] = useState(true);
-    const [isBuyerVisited, setIsBuyerVisited] = useState(true);
-    const [isEmploymentVisited, setIsEmploymentVisited] = useState(true);
+  const [purchaseVisible, setPurchaseVisible] = useState(true);
+  const [personalVisible, setPersonalVisible] = useState(false);
+  const [residentialVisible, setResidentialVisible] = useState(false);
+  const [employmentVisible, setEmploymentVisible] = useState(false);
+  const [bankInfoVisible, setBankInfoVisible] = useState(false);
+  const [buyerInfoVisible, setBuyerInfoVisible] = useState(false);
+  const [termInfo, setTermInfo] = useState(false);
+  const [formTab, setFormTab] = useState(1);
+  const [isPersonalVisited, setIsPersonalVisited] = useState(false);
+  const [isResidentialVisited, setIsResidentialVisited] = useState(false);
+  const [isBankVisited, setIsBankVisited] = useState(false);
+  const [isBuyerVisited, setIsBuyerVisited] = useState(false);
+  const [isEmploymentVisited, setIsEmploymentVisited] = useState(false);
 
-    const nextStep = (e) => {
-        setFormTab(formTab + 1);
-    };
+  const nextStep = (e) => {
+    setFormTab(formTab + 1);
+  };
 
-    const { id, tab } = queryString.parse(location.search);
+  const { id, tab } = queryString.parse(location.search);
+  const url = window.location.href;
+  const check = url.charAt(url.length - 1);
+  const type = parseInt(check);
+  const isEdit = numbers.includes(type) === false;
 
-    /*
-    NOTE; Since id is always undefined this logic actually clears the form values
-    on every render thereby making empty values to be submitted when the entire form is finally submitted.
+  useEffect(() => {
+    if (tab === "cobuyer") {
+      setFormTab(6);
+      setIsBuyerVisited(true);
+      window.scrollTo({
+        left: 0,
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [tab]);
 
-    This logic which is required to clear the form has been moved to the "TERM FORM" component immediately after the
-    form and its data have been submitted
-    */
-    // if (id === undefined) {
-    //     // batch(() => {
-    //     //     dispatch(reset("purchase"));
-    //     //     dispatch(reset("personal"));
-    //     //     dispatch(reset("employment"));
-    //     //     dispatch(reset("buyer"));
-    //     //     dispatch(reset("bank"));
-    //     //     dispatch(reset("credit"));
-    //     //     dispatch(reset("term"));
-    //     // });
-    // } else {
-    //     /*
-    //     I dont know what this is doing, but this logic never gets hit because id is always undefined
-    //     */
-    //     // TODO: Test
-    //     const bankingFormData =
-    //         state.application && state.application.banking_info ? state.application.banking_info : null;
-    //     const buyerFormData =
-    //         state.application && state.application.co_buyer_info ? state.application.co_buyer_info : null;
-    //     const purchaseFormData =
-    //         state.application && state.application.purchase_detail ? state.application.purchase_detail : null;
-    //     const employmentFormData =
-    //         state.application && state.application.employment_info ? state.application.employment_info : null;
-    //     const residentialFormData =
-    //         state.application && state.application.residential_info ? state.application.residential_info : null;
-    //     const personalFormData =
-    //         state.application && state.application.personal_info ? state.application.personal_info : null;
-    //     const termFormData = state.application && state.application.terms ? state.application.terms : null;
+  useEffect(() => {
+    if (isEdit){
+      dispatch(getApplication({}))
+    } else {
+      dispatch(getApplicationData(id))
+      // open all tabs
+      setPurchaseVisible(true)
+      setPersonalVisible(true)
+      setResidentialVisible(true)
+      setEmploymentVisible(true)
+      setBankInfoVisible(true)
+      setBuyerInfoVisible(true)
+      setTermInfo(true)
+      // enable carets
+      setIsPersonalVisited(true)
+      setIsResidentialVisited(true)
+      setIsBankVisited(true)
+      setIsBuyerVisited(true)
+      setIsEmploymentVisited(true)
+    }
+  }, [id, isEdit, dispatch]);
 
-    //     bankDispatch(bankingFormData, dispatch, batch);
-    //     buyerDispatch(buyerFormData, dispatch, batch);
-    //     purchaseDispatch(purchaseFormData, dispatch, batch);
-    //     employmentDispatch(employmentFormData, dispatch, batch);
-    //     residentialDispatch(residentialFormData, dispatch, batch);
-    //     personalDispatch(personalFormData, dispatch, batch);
-    //     termDispatch(termFormData, dispatch, batch);
-    // }
+  return (
+    <div>
+      <div className="container">
+        <Navigation />
+        <div id="credit-page">
+          <Container textAlign="center">
+            <Segment className="credit-page">
+              {!state.isLoading ? (
+                <div>
+                  {/* Header */}
+                  <h4 id="green-bold-header" className="credit-page__header">
+                    Credit Application
+                  </h4>
 
-    const url = window.location.href;
-    const check = url.charAt(url.length - 1);
-    const type = parseInt(check);
-    const isEdit = numbers.includes(type) === false;
+                  {/* Purchase Details */}
+                  <div className="box-with-shadow ">
+                    <Header
+                      title="PURCHASE DETAILS"
+                      isAccessible={true}
+                      isVisible={purchaseVisible}
+                      clickFunc={() => {
+                        setPurchaseVisible(!purchaseVisible);
+                      }}
+                    />
+                    {(purchaseVisible === true || id) && (
+                      <PurchaseForm
+                        id={id}
+                        formData={
+                          state.application && state.application.purchase_detail
+                        }
+                        onSubmit={nextStep}
+                        setPersonalVisible={setPersonalVisible}
+                        setPurchaseVisible={setPurchaseVisible}
+                      />
+                    )}
+                  </div>
 
-    useEffect(() => {
-        if (tab === "cobuyer") {
-            setFormTab(6);
-            setIsBuyerVisited(true);
-            window.scrollTo({
-                left: 0,
-                top: document.body.scrollHeight,
-                behavior: "smooth"
-            });
-        }
-    }, [tab]);
+                  {/* Personal Information */}
+                  <div className="box-with-shadow">
+                    <Header
+                      title="PERSONAL INFORMATION"
+                      isAccessible={
+                        formTab !== 2 && isPersonalVisited === false
+                      }
+                      isVisible={personalVisible}
+                      clickFunc={() => {
+                        setPersonalVisible(!personalVisible);
+                      }}
+                    />
+                    {(personalVisible === true || id) && (
+                      <PersonalForm
+                        id={id}
+                        formData={
+                          state.application && state.application.personal_info
+                        }
+                        setIsPersonalVisited={setIsPersonalVisited}
+                        onSubmit={nextStep}
+                        setResidentialVisible={setPersonalVisible}
+                        setPersonalVisible={setPersonalVisible}
+                      />
+                    )}
+                  </div>
 
-    useEffect(() => {
-        if (isEdit) {
-            dispatch(getApplication({}));
-        } else {
-            dispatch(getApplicationData(id));
-        }
-    }, [id, isEdit, dispatch]);
+                  {/* Residential Information */}
+                  <div className="box-with-shadow">
+                    <Header
+                      title="RESIDENTIAL INFORMATION"
+                      isAccessible={
+                        formTab !== 3 && isResidentialVisited === false
+                      }
+                      isVisible={residentialVisible}
+                      clickFunc={() => {
+                        setResidentialVisible(!residentialVisible);
+                      }}
+                    />
+                    {(formTab === 3 || residentialVisible || id) && (
+                      <ResidentialForm
+                        id={id}
+                        formData={
+                          state.application &&
+                          state.application.residential_info
+                        }
+                        setIsResidentialVisited={setIsResidentialVisited}
+                        onSubmit={nextStep}
+                        setResidentialVisible={setResidentialVisible}
+                        setEmploymentVisible={setEmploymentVisible}
+                      />
+                    )}
+                  </div>
 
-    return (
-        <div>
-            <div className="container">
-                <Navigation />
-                <div id="credit-page">
-                    <Container textAlign="center">
-                        <Segment className="credit-page">
-                            {!state.isLoading ? (
-                                <div>
-                                    {/* Header */}
-                                    <h4 id="green-bold-header" className="credit-page__header">
-                                        Credit Application
-                                    </h4>
+                  {/* Employment Information */}
+                  <div className="box-with-shadow">
+                    <Header
+                      title="EMPLOYMENT INFORMATION"
+                      isAccessible={
+                        formTab !== 4 && isEmploymentVisited === false
+                      }
+                      isVisible={employmentVisible}
+                      clickFunc={() => {
+                        setEmploymentVisible(!employmentVisible);
+                      }}
+                    />
+                    {(formTab === 4 || employmentVisible || id) && (
+                      <EmploymentForm
+                        id={id}
+                        formData={
+                          state.application && state.application.employment_info
+                        }
+                        setIsEmploymentVisited={setIsEmploymentVisited}
+                        onSubmit={nextStep}
+                        setEmploymentVisible={setEmploymentVisible}
+                        setBankInfoVisible={setBankInfoVisible}
+                      />
+                    )}
+                  </div>
 
-                                    {/* Purchase Details */}
-                                    <div className="box-with-shadow ">
-                                        <div className="flex-space-between" id="green-bold-header">
-                                            <h1 id="green-bold-header">PURCHASE DETAILS</h1>
-                                            <div onClick={() => setPurchaseVisible(!purchaseVisible)}>
-                                                {purchaseVisible ? (
-                                                    <Icon name="angle up" />
-                                                ) : (
-                                                        <Icon name="angle down" />
-                                                    )}
-                                            </div>
-                                        </div>
-                                        {purchaseVisible === true || id ? (
-                                            <PurchaseForm
-                                                id={id}
-                                                formData={state.application && state.application.purchase_detail}
-                                                onSubmit={nextStep}
-                                                setPersonalVisible={setPersonalVisible}
-                                                setPurchaseVisible={setPurchaseVisible}
-                                            />
-                                        ) : null}
-                                    </div>
+                  {/* Banking Information */}
+                  <div className="box-with-shadow">
+                    <Header
+                      title="BANKING INFORMATION"
+                      isAccessible={formTab !== 5 && isBankVisited === false}
+                      isVisible={bankInfoVisible}
+                      clickFunc={() => {
+                        setBankInfoVisible(!bankInfoVisible);
+                      }}
+                    />
+                    {(formTab === 5 || bankInfoVisible || id) && (
+                      <BankForm
+                        id={id}
+                        formData={
+                          state.application && state.application.banking_info
+                        }
+                        setIsBankVisited={setIsBankVisited}
+                        visible={bankInfoVisible}
+                        onSubmit={nextStep}
+                        setBankInfoVisible={setBankInfoVisible}
+                        setBuyerInfoVisible={setBuyerInfoVisible}
+                      />
+                    )}
+                  </div>
 
-                                    {/* Personal Information */}
-                                    <div className="box-with-shadow">
-                                        <div className="flex-space-between" id="green-bold-header">
-                                            <div>
-                                                <h1 id="green-bold-header"> PERSONAL INFORMATION</h1>
-                                            </div>
-                                            {formTab !== 2 && isPersonalVisited === false ? (
-                                                <div>
-                                                    <Icon disabled name="angle down" />
-                                                </div>
-                                            ) : (
-                                                    <div onClick={() => setPersonalVisible(!personalVisible)}>
-                                                        {personalVisible ? (
-                                                            <Icon name="angle up" />
-                                                        ) : (
-                                                                <Icon name="angle down" />
-                                                            )}
-                                                    </div>
-                                                )}
-                                        </div>
-                                        {personalVisible === true || id ? (
-                                            <PersonalForm
-                                                id={id}
-                                                formData={state.application && state.application.personal_info}
-                                                setIsPersonalVisited={setIsPersonalVisited}
-                                                onSubmit={nextStep}
-                                                setResidentialVisible={setPersonalVisible}
-                                                setPersonalVisible={setPersonalVisible}
-                                            />
-                                        ) : (
-                                                ""
-                                            )}
-                                    </div>
+                  {/* Co-Buyer Information */}
+                  <div className="box-with-shadow">
+                    <Header
+                      title="CO-BUYER INFORMATION (OPTIONAL)"
+                      isAccessible={formTab !== 6 && isBuyerVisited === false}
+                      isVisible={buyerInfoVisible}
+                      clickFunc={() => {
+                        setBuyerInfoVisible(!buyerInfoVisible);
+                      }}
+                    />
+                    {(formTab === 6 || buyerInfoVisible || id) && (
+                      <BuyerForm
+                        id={id}
+                        formData={
+                          state.application && state.application.co_buyer_info
+                        }
+                        setIsBuyerVisited={setIsBuyerVisited}
+                        onSubmit={nextStep}
+                        setBuyerInfoVisible={setBuyerInfoVisible}
+                        setTermVisible={setTermInfo}
+                      />
+                    )}
+                  </div>
 
-                                    {/* Residential Information */}
-                                    <div className="box-with-shadow">
-                                        <div className="flex-space-between" id="green-bold-header">
-                                            <div>
-                                                <h1 id="green-bold-header">RESIDENTIAL INFORMATION</h1>
-                                            </div>
-                                            {formTab !== 3 && isResidentialVisited === false ? (
-                                                <div>
-                                                    <Icon disabled name="angle down" />
-                                                </div>
-                                            ) : (
-                                                    <div onClick={() => setResidentialVisible(!residentialVisible)}>
-                                                        {residentialVisible ? (
-                                                            <Icon name="angle up" />
-                                                        ) : (
-                                                                <Icon name="angle down" />
-                                                            )}
-                                                    </div>
-                                                )}
-                                        </div>
-                                        {formTab === 3 || residentialVisible || id ? (
-                                            <ResidentialForm
-                                                id={id}
-                                                formData={state.application && state.application.residential_info}
-                                                setIsResidentialVisited={setIsResidentialVisited}
-                                                onSubmit={nextStep}
-                                                setResidentialVisible={setResidentialVisible}
-                                                setEmploymentVisible={setEmploymentVisible}
-                                            />
-                                        ) : (
-                                                ""
-                                            )}
-                                    </div>
-
-                                    {/* Employment Information */}
-                                    <div className="box-with-shadow">
-                                        <div className="flex-space-between" id="green-bold-header">
-                                            <div>
-                                                <h1 id="green-bold-header">EMPLOYMENT INFORMATION</h1>
-                                            </div>
-                                            {formTab !== 4 && isEmploymentVisited === false ? (
-                                                <div>
-                                                    <Icon disabled name="angle down" />
-                                                </div>
-                                            ) : (
-                                                    <div onClick={() => setEmploymentVisible(!employmentVisible)}>
-                                                        {employmentVisible ? (
-                                                            <Icon name="angle up" />
-                                                        ) : (
-                                                                <Icon name="angle down" />
-                                                            )}
-                                                    </div>
-                                                )}
-                                        </div>
-                                        {formTab === 4 || employmentVisible || id ? (
-                                            <EmploymentForm
-                                                id={id}
-                                                formData={state.application && state.application.employment_info}
-                                                setIsEmploymentVisited={setIsEmploymentVisited}
-                                                onSubmit={nextStep}
-                                                setEmploymentVisible={setEmploymentVisible}
-                                                setBankInfoVisible={setBankInfoVisible}
-                                            />
-                                        ) : (
-                                                ""
-                                            )}
-                                    </div>
-
-                                    {/* Banking Information */}
-                                    <div className="box-with-shadow">
-                                        <div className="flex-space-between" id="green-bold-header">
-                                            <div>
-                                                <h1 id="green-bold-header">BANKING INFORMATION</h1>
-                                            </div>
-                                            {formTab !== 5 && isBankVisited === false ? (
-                                                <div>
-                                                    <Icon disabled name="angle down" />
-                                                </div>
-                                            ) : (
-                                                    <div onClick={() => setBankInfoVisible(!bankInfoVisible)}>
-                                                        {bankInfoVisible ? (
-                                                            <Icon name="angle up" />
-                                                        ) : (
-                                                                <Icon name="angle down" />
-                                                            )}
-                                                    </div>
-                                                )}
-                                        </div>
-                                        {formTab === 5 || bankInfoVisible || id ? (
-                                            <BankForm
-                                                id={id}
-                                                formData={state.application && state.application.banking_info}
-                                                setIsBankVisited={setIsBankVisited}
-                                                visible={bankInfoVisible}
-                                                onSubmit={nextStep}
-                                                setBankInfoVisible={setBankInfoVisible}
-                                                setBuyerInfoVisible={setBuyerInfoVisible}
-                                            />
-                                        ) : (
-                                                ""
-                                            )}
-                                    </div>
-
-                                    {/* Co-Buyer Information */}
-                                    <div className="box-with-shadow">
-                                        <div className="flex-space-between" id="green-bold-header">
-                                            <div>
-                                                <h1 id="green-bold-header">
-                                                    CO-BUYER INFORMATION <br /> (OPTIONAL)
-                                                </h1>
-                                            </div>
-                                            {formTab !== 6 && isBuyerVisited === false ? (
-                                                <div>
-                                                    <Icon disabled name="angle down" />
-                                                </div>
-                                            ) : (
-                                                    <div onClick={() => setBuyerInfoVisible(!buyerInfoVisible)}>
-                                                        {buyerInfoVisible ? (
-                                                            <Icon name="angle up" />
-                                                        ) : (
-                                                                <Icon name="angle down" />
-                                                            )}
-                                                    </div>
-                                                )}
-                                        </div>
-                                        {formTab === 6 || buyerInfoVisible || id ? (
-                                            <BuyerForm
-                                                id={id}
-                                                formData={state.application && state.application.co_buyer_info}
-                                                setIsBuyerVisited={setIsBuyerVisited}
-                                                onSubmit={nextStep}
-                                                setBuyerInfoVisible={setBuyerInfoVisible}
-                                                setTermVisible={setTermInfo}
-                                            />
-                                        ) : (
-                                                ""
-                                            )}
-                                    </div>
-
-                                    {/* Terms and conditions */}
-                                    <div className="box-with-shadow">
-                                        <div className="flex-space-between" id="green-bold-header">
-                                            <div>
-                                                <h1 id="green-bold-header"> TERMS &amp; CONDITIONS</h1>
-                                            </div>
-                                            {formTab !== 7 ? (
-                                                <div>
-                                                    <Icon disabled name="angle down" />
-                                                </div>
-                                            ) : (
-                                                    <div onClick={() => setTermInfo(!termInfo)}>
-                                                        {termInfo ? <Icon name="angle up" /> : <Icon name="angle down" />}
-                                                    </div>
-                                                )}
-                                        </div>
-                                        {termInfo ? (
-                                            <TermForm id={id} formData={state.application && state.application.terms} />
-                                        ) : (
-                                                ""
-                                            )}
-                                    </div>
-                                </div>
-                            ) : (
-                                    <Loader className="loader-applications" active inline="centered" />
-                                )}
-                        </Segment>
-                    </Container>
+                  {/* Terms and conditions */}
+                  <div className="box-with-shadow">
+                    <Header
+                      title="TERMS &amp; CONDITIONS"
+                      isAccessible={formTab !== 7}
+                      isVisible={termInfo}
+                      clickFunc={() => {
+                        setTermInfo(!termInfo);
+                      }}
+                    />
+                    {termInfo && (
+                      <TermForm
+                        id={id}
+                        formData={state.application && state.application.terms}
+                      />
+                    )}
+                  </div>
                 </div>
-            </div>
+              ) : (
+                <Loader
+                  className="loader-applications"
+                  active
+                  inline="centered"
+                />
+              )}
+            </Segment>
+          </Container>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Credit;

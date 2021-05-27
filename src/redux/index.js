@@ -7,7 +7,7 @@ import {
   loginUser,
   getDSToken,
   createNewPassword,
-  resetPassword,
+  resetPasswordRequest,
 } from "./actions/auth";
 
 import {
@@ -51,5 +51,5 @@ export {
   setAppLoading,
   setApplicationSuccess,
   createNewPassword,
-  resetPassword,
+  resetPasswordRequest,
 };
