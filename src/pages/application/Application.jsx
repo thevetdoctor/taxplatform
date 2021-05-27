@@ -135,15 +135,16 @@ const Application = () => {
   //Filter using search input
   //-------------------------------------------------------------
   useEffect(() => {
-    // const data = applications.filter((data) => {
-    //     const { firstName, lastName } = data.personal_info.form;
-    //     return (
-    //         firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
-    //         lastName.toLowerCase().includes(searchInput.toLowerCase())
-    //     );
-    // });
-    // setDisplayedData(data);
-    // renderData(data);
+    const data = subsetData.filter((app) => {
+      if (app.personal_info && app.personal_info.form){
+        const { firstName, lastName } = app.personal_info.form;
+        return (
+            firstName?.toLowerCase().includes(searchInput.toLowerCase()) ||
+            lastName?.toLowerCase().includes(searchInput.toLowerCase())
+        );
+      }
+    });
+    setDisplayedData(data);
   }, [searchInput]);
 
   //-------------------------------------------------------------
