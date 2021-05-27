@@ -106,24 +106,14 @@
                         border-bottom: 2px solid $secondary-color;
                         padding: 20px;
                     }
+
                 }
 
-                &:nth-child(1) {
-                    @media (max-width: $tablet-breakpoint) {
-                        display: none;
-                    }
-                }
-                &:nth-child(2) {
-                    @media (max-width: $tablet-breakpoint) {
-                        display: none;
-                    }
-                }
-                &:nth-child(3) {
-                    @media (max-width: $tablet-breakpoint) {
-                        display: none;
-                    }
-                }
-                &:nth-child(4) {
+                &:nth-child(1),
+                &:nth-child(2),
+                &:nth-child(3),
+                &:nth-child(4),
+                &:nth-child(5) {
                     @media (max-width: $tablet-breakpoint) {
                         display: none;
                     }
@@ -138,6 +128,10 @@
                     @media (max-width: $tablet-breakpoint) {
                         visibility: visible;
                     }
+                }
+
+                @media (max-width: 1023px) and (min-width: 768px){
+                    font-size: 0.8em;
                 }
             }
         }

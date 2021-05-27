@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Container, Button, Form, Card, Message } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { Link, useHistory } from "react-router-dom";
 import renderField from "../credit/components/subComponents/formFields/renderField";
 import renderPasswordField from "../credit/components/subComponents/formFields/renderPasswordField";
 import { normalizePhone, isEmail } from "../../utils/Utils";
-
-import { Link, useHistory } from "react-router-dom";
 import { validateRegister } from "../../utils/Utils";
 import { registerUser } from "../../redux/actions/auth";
-
 import "../../styles/auth.scss";
 
 const Register = () => {
@@ -126,9 +124,9 @@ const Register = () => {
                                                 </Button>
                                             </div>
                                             <div>
-                                                <Link to="/login">
+                                                <Link to="/">
                                                     <Button id="btn-outline" basic color="green">
-                                                        Login
+                                                        Back
                                                     </Button>
                                                 </Link>
                                             </div>
