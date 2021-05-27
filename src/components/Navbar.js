@@ -29,6 +29,7 @@ const Navbar = () => {
                     <Link to="/applications">Application Manager</Link>
                     <Link to="/billing">Billing Manager</Link>
                     <Link to="/errors">Error Manager</Link>
+                    <Link to='/register'>Admin</Link>
                     <Link to="/login">Logout</Link>
                 </div>
             </div>
@@ -57,6 +58,11 @@ const Navbar = () => {
                     <li>
                         <NavLink className="link" to="/errors" activeClassName="selected">
                             Error Manager
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="link" to="/update/password" activeClassName="selected">
+                            Admin
                         </NavLink>
                     </li>
                     <li onClick={() => logoutAdmin()}>Logout</li>

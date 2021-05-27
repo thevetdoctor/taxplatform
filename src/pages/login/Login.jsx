@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import renderField from "../credit/components/subComponents/formFields/renderField";
 import renderPasswordField from "../credit/components/subComponents/formFields/renderPasswordField";
-import { loginUser, resetPassword } from "../../redux";
+import { loginUser, resetPasswordRequest } from "../../redux";
 import { isEmail, validateLogin } from "../../utils/Utils";
 import "../../styles/auth.scss";
 
@@ -50,7 +50,7 @@ const Login = () => {
             setErrorsPassword("Must be a valid email address");
         } else {
             setErrorsPassword(false);
-            dispatch(resetPassword({ email }, setLoadingPasswordUpdate, setErrorsPassword, setSuccessPassword));
+            dispatch(resetPasswordRequest({ email }, setLoadingPasswordUpdate, setErrorsPassword, setSuccessPassword));
         }
     };
 

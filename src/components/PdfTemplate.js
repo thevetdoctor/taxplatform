@@ -218,7 +218,7 @@ const PdfTemplate = ({ userData }) => {
                 )}
               </div>
 
-              {userData?.co_buyer_info?.form.coBuyer === "Yes" && (
+              {userData?.co_buyer_info?.form?.coBuyer === "Yes" && (
                 <div>
                   <h3>Co-Buyer Initials</h3>
                   <p></p>
