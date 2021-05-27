@@ -82,7 +82,7 @@ const Application = () => {
     const end = index * 5;
     const start = index * 5 - 5;
     const subset = JSON.parse(JSON.stringify(data)).slice(start, end);
-    setSubsetData(subset);
+    setDisplayedData(subset);
   };
 
   //-------------------------------------------------------------
@@ -99,44 +99,49 @@ const Application = () => {
   };
 
   //-------------------------------------------------------------
+  //Filters Data with checkboxes
+  //-------------------------------------------------------------
+  const getActiveFilters = () => {
+    return Object.entries(currentFilters).map(([key, val]) => {
+      if (val) {
+        switch (key) {
+          case "pending":
+            return pendingNum;
+          case "approved":
+            return approvedNum;
+          case "signed":
+            return signedNum;
+          case "completed":
+            return completedNum;
+          case "rejected":
+            return rejectedNum;
+          default:
+        }
+      }
+    });
+  };
+
+  //-------------------------------------------------------------
   //When any checkbox is clicked fire this useEffect to determine what should be displayed
   //-------------------------------------------------------------
   useEffect(() => {
-    renderData(applications);
-
-    const activeFilters = Object.entries(currentFilters).map(
-      ([key, val]) => {
-        if (val) {
-          switch (key) {
-            case "pending":
-              return pendingNum;
-            case "approved":
-              return approvedNum;
-            case "signed":
-              return signedNum;
-            case "completed":
-              return completedNum;
-            case "rejected":
-              return rejectedNum;
-            default:
-          }
-        }
-      }
-    );
-
-    console.log({ activeFilters });
-
-    if (activeFilters.length > 0) {
-      const filteredContent = applications.filter((app) => {
-        if (activeFilters.includes(app.status)) {
-          return app;
-        }
-      });
-      setSubsetData(filteredContent);
-      renderData(filteredContent);
-    } else {
-      setSubsetData(applications);
+    if (applications) {
       renderData(applications);
+
+      const activeFilters = getActiveFilters();
+
+      console.log({ activeFilters });
+
+      if (activeFilters.length > 0) {
+        const filteredContent = applications.filter((app) => {
+          if (activeFilters.includes(app.status)) {
+            return app;
+          }
+        });
+        renderData(filteredContent);
+      } else {
+        renderData(applications);
+      }
     }
   }, [applications, currentFilters]);
 
@@ -144,23 +149,40 @@ const Application = () => {
   //Filter using search input
   //-------------------------------------------------------------
   useEffect(() => {
-    const data = applications.filter((app) => {
-      if (app.personal_info && app.personal_info.form) {
-        const { firstName, lastName } = app.personal_info.form;
-        return (
-          firstName?.toLowerCase().includes(searchInput.toLowerCase()) ||
-          lastName?.toLowerCase().includes(searchInput.toLowerCase())
-        );
+    console.log({ searchInput });
+    console.log(JSON.parse(JSON.stringify(subsetData)));
+    const activeFilters = getActiveFilters();
+    const newSubsetData = applications.filter((app) => {
+      if (activeFilters.includes(app.status)) {
+        return app;
       }
     });
-    setSubsetData(data);
+
+    if (searchInput && searchInput.length > 0) {
+      console.log({ subsetData });
+      const filteredData = newSubsetData.filter((app) => {
+        if (app.personal_info && app.personal_info.form) {
+          const { firstName, lastName } = app.personal_info.form;
+          if (
+            firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+            lastName.toLowerCase().includes(searchInput.toLowerCase())
+          ) {
+            return app;
+          }
+        }
+      });
+
+      setDisplayedData(filteredData);
+    } else {
+      setSubsetData(subsetData);
+    }
   }, [searchInput]);
 
   //-------------------------------------------------------------
   //When the items to be displayed in this pagination index have been sorted out, display them
   //-------------------------------------------------------------
   useEffect(() => {
-    setDisplayedData(subsetData);
+    renderData(subsetData);
   }, [subsetData]);
 
   //-------------------------------------------------------------
