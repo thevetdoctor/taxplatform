@@ -29,6 +29,7 @@ const PurchaseForm = ({
   setPurchaseVisible,
 }) => {
   const data = useSelector((state) => state.form.purchase);
+  const [isEditing, setIsEditing] = useState(true);
   const [isHidden, setIsHidden] = useState(true);
   const [currentDate, setNewDate] = useState(null);
   const dispatch = useDispatch();
@@ -62,6 +63,10 @@ const PurchaseForm = ({
     setPurchaseVisible(false);
   };
 
+  const handleEdit = () => {
+    setIsEditing(true);
+    setIsHidden(true);
+  }
   const calculate = (e) => {
     e.preventDefault();
     // Total Loan Return ( Amount Financed * (100 + (APR * Years)) + Finance Charge )
@@ -98,6 +103,7 @@ const PurchaseForm = ({
       );
     });
 
+    setIsEditing(false);
     setIsHidden(false);
   };
 
@@ -117,6 +123,7 @@ const PurchaseForm = ({
               format={formatAmount}
               normalize={normalizeAmount}
               component={renderField}
+              onChange={handleEdit}
             />
           </div>
           <div>
@@ -127,6 +134,7 @@ const PurchaseForm = ({
               name="numberOfmonthlyPayment"
               option={optionsNoOfMonthlyPayment}
               component={renderSelectField}
+              onChange={handleEdit}
             />
           </div>
           <div>
@@ -137,6 +145,7 @@ const PurchaseForm = ({
                 name="contractLocation"
                 label="Contract Location"
                 component={renderSelectField}
+                onChange={handleEdit}
                 option={USA_STATES}
               />
             </div>
@@ -151,6 +160,7 @@ const PurchaseForm = ({
               normalize={normalizeAmount}
               label="Finance Charge"
               component={renderField}
+              onChange={handleEdit}
             />
           </div>
           <div>
@@ -160,12 +170,13 @@ const PurchaseForm = ({
               label="APR (%)"
               normalize={normalizePerct}
               component={renderField}
+              onChange={handleEdit}
             />
           </div>
         </div>
 
-        {isHidden &&
-        data &&
+        {isEditing &&
+          data &&
           data.values &&
           data.values.amountFinance &&
           data.values.numberOfmonthlyPayment &&
@@ -186,7 +197,7 @@ const PurchaseForm = ({
               </div>
             </div>
           )}
-        <div className={isHidden ? "hide" : "show"}>
+        <div className={isHidden && isEditing ? "hide" : "show"}>
           <div className="form-style">
             <div>
               <Field
