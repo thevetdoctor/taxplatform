@@ -20,6 +20,7 @@ const Credit = ({ location }) => {
   const state = useSelector((state) => state.app);
   const dispatch = useDispatch();
 
+  const [singleVisible, setSingleVisible] = useState(true);
   const [purchaseVisible, setPurchaseVisible] = useState(true);
   const [personalVisible, setPersonalVisible] = useState(false);
   const [residentialVisible, setResidentialVisible] = useState(false);
@@ -78,6 +79,16 @@ const Credit = ({ location }) => {
     }
   }, [id, isEdit, dispatch]);
 
+  const anotherFormOpen = () => {
+         setPurchaseVisible(false)
+         setPersonalVisible(false)
+         setResidentialVisible(false)
+         setEmploymentVisible(false)
+         setBankInfoVisible(false)
+         setBuyerInfoVisible(false)
+         setTermInfo(false)
+  }
+
   return (
     <div>
       <div className="container">
@@ -99,6 +110,7 @@ const Credit = ({ location }) => {
                       isAccessible={true}
                       isVisible={purchaseVisible}
                       clickFunc={() => {
+                        if(!purchaseVisible) anotherFormOpen()
                         setPurchaseVisible(!purchaseVisible);
                       }}
                     />
@@ -124,6 +136,7 @@ const Credit = ({ location }) => {
                       }
                       isVisible={personalVisible}
                       clickFunc={() => {
+                        if(!personalVisible) anotherFormOpen()
                         setPersonalVisible(!personalVisible);
                       }}
                     />
@@ -150,6 +163,7 @@ const Credit = ({ location }) => {
                       }
                       isVisible={residentialVisible}
                       clickFunc={() => {
+                        if(!residentialVisible) anotherFormOpen()
                         setResidentialVisible(!residentialVisible);
                       }}
                     />
@@ -177,6 +191,7 @@ const Credit = ({ location }) => {
                       }
                       isVisible={employmentVisible}
                       clickFunc={() => {
+                        if(!employmentVisible) anotherFormOpen()
                         setEmploymentVisible(!employmentVisible);
                       }}
                     />
@@ -201,6 +216,7 @@ const Credit = ({ location }) => {
                       isAccessible={formTab !== 5 && isBankVisited === false}
                       isVisible={bankInfoVisible}
                       clickFunc={() => {
+                        if(!bankInfoVisible) anotherFormOpen()
                         setBankInfoVisible(!bankInfoVisible);
                       }}
                     />
@@ -226,6 +242,7 @@ const Credit = ({ location }) => {
                       isAccessible={formTab !== 6 && isBuyerVisited === false}
                       isVisible={buyerInfoVisible}
                       clickFunc={() => {
+                        if(!buyerInfoVisible) anotherFormOpen()
                         setBuyerInfoVisible(!buyerInfoVisible);
                       }}
                     />
@@ -250,6 +267,7 @@ const Credit = ({ location }) => {
                       isAccessible={formTab !== 7}
                       isVisible={termInfo}
                       clickFunc={() => {
+                        if(!termInfo) anotherFormOpen()
                         setTermInfo(!termInfo);
                       }}
                     />
