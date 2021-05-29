@@ -164,7 +164,8 @@ const PurchaseForm = ({
           </div>
         </div>
 
-        {data &&
+        {isHidden &&
+        data &&
           data.values &&
           data.values.amountFinance &&
           data.values.numberOfmonthlyPayment &&
