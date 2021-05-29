@@ -207,6 +207,7 @@ const PurchaseForm = ({
                 // format={formatAmount}
                 normalize={normalizeAmount}
                 component={renderField}
+                onChange={(e) => calculate(e)}
               />
             </div>
             <div>
@@ -217,6 +218,7 @@ const PurchaseForm = ({
                 // format={formatAmount}
                 normalize={normalizeAmount}
                 component={renderField}
+                onChange={(e) => calculate(e)}
               />
             </div>
             <div>
