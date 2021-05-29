@@ -35,8 +35,9 @@ const PurchaseForm = ({
   const dispatch = useDispatch();
 
   const handleDate = (event, data, input) => {
-    setNewDate(data.value);
-    input.onChange(data.value);
+    const derivedDate = new Date(data.value).getTime();
+    setNewDate(derivedDate);
+    input.onChange(derivedDate);
   };
 
   const renderDatePicker = ({ input, label, meta: { touched, error } }) => {

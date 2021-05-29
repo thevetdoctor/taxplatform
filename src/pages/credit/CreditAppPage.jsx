@@ -20,7 +20,6 @@ const Credit = ({ location }) => {
   const state = useSelector((state) => state.app);
   const dispatch = useDispatch();
 
-  const [singleVisible, setSingleVisible] = useState(true);
   const [purchaseVisible, setPurchaseVisible] = useState(true);
   const [personalVisible, setPersonalVisible] = useState(false);
   const [residentialVisible, setResidentialVisible] = useState(false);
