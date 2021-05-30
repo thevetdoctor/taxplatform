@@ -209,6 +209,7 @@ const PurchaseForm = ({
                 normalize={normalizeAmount}
                 component={renderField}
                 onChange={(e) => calculate(e)}
+                onBlur={(e) => calculate(e)}
               />
             </div>
             <div>
@@ -220,6 +221,7 @@ const PurchaseForm = ({
                 normalize={normalizeAmount}
                 component={renderField}
                 onChange={(e) => calculate(e)}
+                onBlur={(e) => calculate(e)}
               />
             </div>
             <div>
