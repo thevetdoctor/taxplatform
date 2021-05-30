@@ -16,7 +16,8 @@ const Header = ({ title, isAccessible, isVisible, clickFunc }) => (
       </div>
     ) : (
       <div>
-        <Icon disabled name="angle down" />
+        <Icon name="angle down" />
+        {/* <Icon disabled name="angle down" /> */}
       </div>
     )}
   </div>
