@@ -458,6 +458,18 @@ export const validatePersonal = (values) => {
     }
     if (!values.dateOfBirth) {
         errors.dateOfBirth = "Required";
+    } else {
+    // } else if(/[0,1][0-2]\/[0-3][0-1]\/[0-9]{4}$/.test(values.dateOfBirth)) {
+        let [month, day, year ] = values.dateOfBirth.split("/");
+        month = parseInt(month);
+        day = parseInt(day);
+        year = parseInt(year);
+        const validMonth = month > 0 && month <= 12; 
+        const validDay = day > 0 && day <= 31; 
+        const validYear = year > 1950 && year <= 2021; 
+        if(!validMonth || !validDay || !validYear) {
+            errors.dateOfBirth = "Invalid birth date"
+        }
     }
     if (!values.socialSecurity) {
         errors.socialSecurity = "Required";
