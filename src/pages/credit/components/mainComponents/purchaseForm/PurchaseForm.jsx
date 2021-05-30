@@ -58,7 +58,8 @@ const PurchaseForm = ({
     );
   };
 
-  const handleNext = () => {
+  const handleNext = (e) => {
+    e.preventDefault();
     setPersonalVisible(true);
     onSubmit();
     setPurchaseVisible(false);
@@ -238,9 +239,7 @@ const PurchaseForm = ({
               <div>
                 <button
                   disabled={data && data.syncErrors}
-                  onClick={() => {
-                    handleNext();
-                  }}
+                  onClick={handleNext}
                   className="btns"
                   positive
                 >
