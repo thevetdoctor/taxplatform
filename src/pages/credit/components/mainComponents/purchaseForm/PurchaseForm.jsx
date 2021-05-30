@@ -16,6 +16,7 @@ import { validatePurchase } from "../../../CreditAppUtils";
 import {
   formatNumber,
   formatAmount,
+  formatSemanticUIDate,
   normalizeAmount,
   normalizePerct,
 } from "../../../../../utils/Utils";
@@ -35,9 +36,12 @@ const PurchaseForm = ({
   const dispatch = useDispatch();
 
   const handleDate = (event, data, input) => {
-    const derivedDate = new Date(data.value).getTime();
-    setNewDate(derivedDate);
-    input.onChange(derivedDate);
+    event.preventDefault();
+    const derivedDate = formatSemanticUIDate(data.value);
+    const [ millisecondFormat, ISOFormat ] = derivedDate;
+    setNewDate(millisecondFormat);
+    input.onChange(ISOFormat);
+    console.log(millisecondFormat, ISOFormat);
   };
 
   const renderDatePicker = ({ input, label, meta: { touched, error } }) => {
@@ -50,7 +54,7 @@ const PurchaseForm = ({
           minDate={new Date()}
           id="form-width"
           value={currentDate}
-          format={"MM-DD-YYYY"}
+          // format={"MM-DD-YYYY"}
           onChange={(event, value) => handleDate(event, value, input)}
         />
         {touched && error && <span>{error}</span>}
@@ -112,6 +116,9 @@ const PurchaseForm = ({
   useEffect(() => {
     purchaseDispatch(formData, dispatch, batch);
   }, [dispatch, formData]);
+
+  console.log(data.values, 'PURCHASE FORM')
+  console.log(currentDate)
 
   return (
     <div>
@@ -229,6 +236,7 @@ const PurchaseForm = ({
               <Field
                 name="firstPayment"
                 label="First Payment Date"
+                // value={currentDate}
                 component={renderDatePicker}
               />
             </div>

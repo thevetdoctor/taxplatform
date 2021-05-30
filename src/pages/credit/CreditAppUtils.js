@@ -495,9 +495,9 @@ export const validatePurchase = (values) => {
         errors.monthlyPayment = "Required";
     }
     
-    // if (!values.firstPayment) {
-    //     errors.firstPayment = "Required";
-    // }
+    if (!values.firstPayment) {
+        errors.firstPayment = "Required";
+    }
     // if (!values.cashPrice) {
     //     errors.cashPrice = "Required";
     // }
