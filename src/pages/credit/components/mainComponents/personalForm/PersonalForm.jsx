@@ -35,6 +35,8 @@ const PersonalForm = ({ id, formData, onSubmit, setPersonalVisible, setResidenti
         personalDispatch(formData, dispatch, batch);
     }, [dispatch, formData]);
 
+  console.log(data, data.values, 'PERSONAL INFORMATION FORM')
+
     return (
         <div>
             <form onSubmit={null} className="form">

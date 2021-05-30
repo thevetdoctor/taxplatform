@@ -10,7 +10,8 @@ export const formatDate = (date) => {
 export const formatSemanticUIDate = (date) => {
     const milliSecondFormat = Date.parse(date);
     const ISOFormat = new Date(milliSecondFormat).toISOString();
-  return [ milliSecondFormat, ISOFormat ];
+    const dateString = moment(milliSecondFormat).format("MM/DD/YYYY");
+  return [ milliSecondFormat, ISOFormat, dateString ];
 };
 
 export const isEmail = (email) => {

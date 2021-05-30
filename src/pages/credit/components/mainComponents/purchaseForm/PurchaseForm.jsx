@@ -38,10 +38,9 @@ const PurchaseForm = ({
   const handleDate = (event, data, input) => {
     event.preventDefault();
     const derivedDate = formatSemanticUIDate(data.value);
-    const [ millisecondFormat, ISOFormat ] = derivedDate;
+    const [ millisecondFormat, ISOFormat, dateString ] = derivedDate;
     setNewDate(millisecondFormat);
-    input.onChange(ISOFormat);
-    console.log(millisecondFormat, ISOFormat);
+    input.onChange(dateString);
   };
 
   const renderDatePicker = ({ input, label, meta: { touched, error } }) => {
@@ -54,7 +53,7 @@ const PurchaseForm = ({
           minDate={new Date()}
           id="form-width"
           value={currentDate}
-          // format={"MM-DD-YYYY"}
+          format={"MM/DD/YYYY"}
           onChange={(event, value) => handleDate(event, value, input)}
         />
         {touched && error && <span>{error}</span>}
@@ -118,7 +117,6 @@ const PurchaseForm = ({
   }, [dispatch, formData]);
 
   console.log(data.values, 'PURCHASE FORM')
-  console.log(currentDate)
 
   return (
     <div>
