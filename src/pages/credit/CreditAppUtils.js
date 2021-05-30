@@ -478,25 +478,10 @@ export const validatePurchase = (values) => {
     if (!values.numberOfmonthlyPayment) {
         errors.numberOfmonthlyPayment = "Required";
     }
-    if (!values.downPayment) {
-        errors.downPayment = "Required";
-    }
-    if (!values.price) {
-        errors.price = "Required";
-    }
-    if (!values.unpaidBalance) {
-        errors.unpaidBalance = "Required";
-    }
     if (!values.contractLocation) {
         errors.contractLocation = "Required";
     }
-    if (!values.cashOption) {
-        errors.cashOption = "Required";
-    }
-    if (!values.defferedFirstPayment) {
-        errors.defferedFirstPayment = "Required";
-    }
-
+    
     if (!values.financeCharge) {
         errors.financeCharge = "Required";
     }
@@ -509,13 +494,28 @@ export const validatePurchase = (values) => {
     if (!values.monthlyPayment) {
         errors.monthlyPayment = "Required";
     }
-
-    if (!values.firstPayment) {
-        errors.firstPayment = "Required";
-    }
-    if (!values.cashPrice) {
-        errors.cashPrice = "Required";
-    }
+    
+    // if (!values.firstPayment) {
+    //     errors.firstPayment = "Required";
+    // }
+    // if (!values.cashPrice) {
+    //     errors.cashPrice = "Required";
+    // }
+    // if (!values.downPayment) {
+    //     errors.downPayment = "Required";
+    // }
+    // if (!values.price) {
+    //     errors.price = "Required";
+    // }
+    // if (!values.unpaidBalance) {
+    //     errors.unpaidBalance = "Required";
+    // }
+    // if (!values.cashOption) {
+    //     errors.cashOption = "Required";
+    // }
+    // if (!values.defferedFirstPayment) {
+    //     errors.defferedFirstPayment = "Required";
+    // }
     return errors;
 };
 
