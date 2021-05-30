@@ -466,7 +466,7 @@ export const validatePersonal = (values) => {
         year = parseInt(year);
         const validMonth = month > 0 && month <= 12; 
         const validDay = day > 0 && day <= 31; 
-        const validYear = year > 1950 && year <= 2021; 
+        const validYear = year > 1950 && year <= 2003; 
         if(!validMonth || !validDay || !validYear) {
             errors.dateOfBirth = "Invalid birth date"
         }

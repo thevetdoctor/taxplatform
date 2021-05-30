@@ -15,8 +15,13 @@ const Header = ({ title, isAccessible, isVisible, clickFunc }) => (
         <Icon name={`angle ${isVisible ? "up" : "down"}`} />
       </div>
     ) : (
-      <div>
-        <Icon name="angle down" />
+      <div
+      onClick={() => {
+        clickFunc();
+      }}
+      >
+      <Icon name={`angle ${isVisible ? "up" : "down"}`} />
+        {/* <Icon name="angle down" /> */}
         {/* <Icon disabled name="angle down" /> */}
       </div>
     )}

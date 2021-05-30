@@ -147,7 +147,7 @@ const Credit = ({ location }) => {
                         }
                         setIsPersonalVisited={setIsPersonalVisited}
                         onSubmit={nextStep}
-                        setResidentialVisible={setPersonalVisible}
+                        setResidentialVisible={setResidentialVisible}
                         setPersonalVisible={setPersonalVisible}
                       />
                     )}
