@@ -185,10 +185,10 @@ const PurchaseForm = ({
         {isEditing &&
           data &&
           data.values &&
-          data.values.amountFinance &&
+          (data.values.amountFinance && data.values.amountFinance.length > 1) &&
           data.values.numberOfmonthlyPayment &&
           data.values.contractLocation &&
-          data.values.financeCharge &&
+          (data.values.financeCharge && data.values.financeCharge.length > 1) &&
           data.values.apr && (
             <div className="btn-big-green">
               <div></div>

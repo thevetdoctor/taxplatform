@@ -494,8 +494,15 @@ export const validatePurchase = (values) => {
         errors.contractLocation = "Required";
     }
     
-    if (!values.financeCharge) {
+    if (!values.financeCharge || values.financeCharge.length < 2) {
         errors.financeCharge = "Required";
+    } else {
+        console.log(values.financeCharge.length)
+    }
+    if (!values.amountFinance || values.amountFinance.length < 2) {
+        errors.amountFinance = "Required";
+    } else {
+        console.log(values.amountFinance.length)
     }
     if (!values.apr) {
         errors.apr = "Required";
