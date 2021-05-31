@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 
 import ExpandedSection from "./ExpandedSection";
 import "../../../styles/billing.scss";
+import { formatDate } from "../../../utils/Utils.js";
 
 const moment = require("moment");
 
@@ -29,9 +30,10 @@ const BillingTableRow = ({ item, index, serialNumber, mobile }) => {
     setShowExpandedDetails(!showExpandedDetails);
   }, [showExpandedDetails]);
 
-  const dateObj = new Date(JSON.parse(item.start_date));
-  const momentObj = moment(dateObj);
-  const formattedDate = momentObj.format("MM/DD/YYYY hh:mm:ss");
+  // const dateObj = new Date(JSON.parse(item.start_date));
+  // const momentObj = moment(dateObj);
+  // const formattedDate = momentObj.format("MM/DD/YYYY hh:mm:ss");
+  const formattedDate = formatDate(item.application.purchase_detail.form.firstPayment)
 
   return (
     <div className="custom-row-wrapper">
