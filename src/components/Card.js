@@ -76,12 +76,13 @@ const CardForm = ({ userData, i }) => {
 
     const handleDownloadPdf = () => {
         var opt = {
-            margin: 0.5,
+            margin: [0.8, 0.5, 0.5, 0.5],
             filename: `${userData.personal_info.form.lastName}_${dayjs(userData.createdAt).format("MM-DD-YYYY_hh-mm A")}.pdf`,
             image: { type: "jpeg", quality: 0.80 },
             html2canvas: { scale: 2 },
-            jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
-        };
+            jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+            // pagebreak: {mode: 'avoid-all'}
+                };
         const elem = document.querySelector(".pdf-template-wrapper");
         html2Pdf().from(elem).set(opt).save();
     };
